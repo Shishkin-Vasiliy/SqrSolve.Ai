@@ -1,0 +1,13 @@
+#include "header.h"
+
+int Cmp(double a, double b)
+{
+	const double epsilon = DBL_EPSILON;
+	
+	if (fabs(a - b) < epsilon)
+		return 0;
+	else if ((a - b) > epsilon)
+		return 1;
+	else 
+		return -1;
+}
