@@ -2,6 +2,8 @@
 
 int GetKoeff(struct equation *Eq)
 {
+	assert(Eq);
+
 	const int NUM_KOEFFS = 3;
 	int ch = 0;
 	int state = 0;

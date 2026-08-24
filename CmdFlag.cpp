@@ -3,6 +3,7 @@
 void CmdFlag(int *TestFlag, int *UserFlag, int argc, char *argv[])
 {
     assert(TestFlag);
+    assert(UserFlag);
 
     int ch = 0;
 

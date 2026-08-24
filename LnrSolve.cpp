@@ -2,6 +2,8 @@
 
 void LnrSolve(struct equation *Eq)
 {	
+	assert(Eq);
+	
 	double b = Eq -> b;
 	double c = Eq -> c;
 

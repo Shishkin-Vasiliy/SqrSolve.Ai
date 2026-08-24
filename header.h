@@ -75,6 +75,7 @@ void ReadTests(struct equation Tests[], struct equation RefTests[]);
 NUM_CODE TestFailCode(struct equation *Test,  struct equation RefTests[], int NumTest);
 void FailMessage(int FailCode, struct equation *Test, struct equation RefTest[], int NumTest);
 
+void PrintTokens(long unsigned int *Tokens);
 long unsigned int Rand(long unsigned int Next);
 
 #endif

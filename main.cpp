@@ -2,8 +2,6 @@
 
 int main(int argc, char *argv[])
 {
-	long unsigned int Tokens = 38494; // todo  // no
-
 	PrintDescr();                          
 
 	struct equation story[BUF_SIZE] = {};
@@ -40,6 +38,7 @@ int main(int argc, char *argv[])
 
 	int flag = 0;      
 	long unsigned int Temp = 0;
+	long unsigned int Tokens = 38494;
 
 	while (GetKoeff(&Eq) != 0) // Todo
 	{
@@ -48,9 +47,7 @@ int main(int argc, char *argv[])
 		AddEq(nEquations, story, &Eq);
 		nEquations++;
 		Output(&Eq);  
-		Temp = Tokens;
-		Tokens = Rand(Temp);
-		printf("У вас осталось %lu токенов.\n\n\n", Temp);             
+		PrintTokens(&Tokens);             
 	}
 
 	PrintStory(nEquations, story, flag);
