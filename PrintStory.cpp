@@ -5,37 +5,34 @@ void PrintStory(int nEquations, struct equation story[], int flag)
     assert(story);
 
     printf("\n");
-    printf("История решений:\n");
-    printf("\n");
-    
-    int i = (nEquations) * sizeof(equation);
+    printf(PURPLE "ИСТОРИЯ РЕШЕНИЙ:" NO_COLOR "\n\n");
+    printf(GREEN "---------------------------------------------------------------" NO_COLOR "\n");
+        
+    int i = nEquations; 
     int j = 0;
 
     if (flag)
     {
-        for (j = i; j < BUF_SIZE * sizeof(equation);)
+        for (j = i; j < BUF_SIZE;)
         {
-                Output(&story[j]);
-                j = j + sizeof(equation);
+            Output(&story[j]);
+            j++;                     
         }
-
+    
         for (j = 0; j < i;)
         {
             Output(&story[j]);
-            j = j + sizeof(equation);
+            j++;                       
         }   
     }
 
-    // вторая проверка в следующем цикле нужна, чтобы не выводить еще не введенные уравнения
-    // если их введено меньше размера буфера
-    // (иначе программа выведет ERROR: некорректное квадратное уравнение)
     else
-        for (j = 0; j < BUF_SIZE * sizeof(equation) && j < i;)
+        for (j = 0; j < BUF_SIZE && j < i;)
         {
             Output(&story[j]);
-            j = j + sizeof(equation);
+            j++;
         }
     
     printf("\n");
-    printf(GREEN "-----------------------------------------" NO_COLOR "\n");
+    printf(GREEN "---------------------------------------------------------------" NO_COLOR "\n");
 }

@@ -3,6 +3,6 @@
 void FileClearBuf(FILE *file)
 {
     int ch = 0;
-    while ((ch = fgetc(file)) != '\n')
+    while ((ch = fgetc(file)) != '\n' && ch != EOF)
         ;
 }

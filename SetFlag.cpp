@@ -1,21 +1,14 @@
 #include "header.h"
 
-// эта функция устанавливает значение флага который 
-// используется для реализации печати истории введенных уравнений на очереди 
-
-int SetFlag(int nEquations)
+void SetFlag (int *nEquations, int *flag)
 {
-    int flag = 0;
-
-    if (nEquations == BUF_SIZE)
+    if (*nEquations == BUF_SIZE)
 		{
-			nEquations = 0;
-			flag = 1;
+			*nEquations = 0;
+			*flag = 1;
 		}
-	else if (nEquations == BUF_SIZE - 1)
+	else if (*nEquations == BUF_SIZE - 1)
 		{
-			flag = 0;
+			*flag = 0;
 		}
-
-    return flag;
 }

@@ -1,9 +1,9 @@
 #include "header.h"
 
-int Cmp(double a, double b)
+int Cmp(double a, double b, int Accuracy)
 {
-	const double epsilon = DBL_EPSILON;
-	
+	double epsilon = pow(10, -Accuracy);
+
 	if (fabs(a - b) < epsilon)
 		return 0;
 	else if ((a - b) > epsilon)

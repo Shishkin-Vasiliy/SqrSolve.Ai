@@ -6,6 +6,7 @@
 #include <stddef.h>
 #include <assert.h>
 #include <float.h>
+#include <time.h>
 #include <cstddef>
 
 #define	RED "\033[31m"
@@ -13,25 +14,23 @@
 #define	PURPLE "\033[35m"
 #define	NO_COLOR "\033[0m"
 
-struct root {
-	double Re;
-	double Im;
-};
-
 struct equation {
 	double a;
 	double b;
 	double c;
 	double D;
 	int nRoots;
-	struct root *x1;
-	struct root *x2;
+	double x1_Re;
+	double x1_Im;
+	double x2_Re;
+	double x2_Im;
 };
 
-#define	BUF_SIZE 3
-#define	MAXLEN (BUF_SIZE * sizeof(equation))
-#define	MAX_TESTS 2
-#define TESTS_BUF (MAX_TESTS * sizeof(equation))
+#define EQ_ARG_NUM 9
+#define FOUR_DIGITS 4
+
+#define	BUF_SIZE 4
+#define	MAX_TESTS 5 
 
 enum NUM_ROOTS {
 	ONE_ROOT = 1,
@@ -58,18 +57,24 @@ int GetKoeff(struct equation *Eq);
 void Discr(struct equation *Eq);                       
 void Output(struct equation *Eq);                      
 void ClearBuf(void);								   
-int Cmp(double a, double b);
+int Cmp(double a, double b, int Accuracy);
 void AddEq(int nEquations, struct equation story[], struct equation *Eq);
 void PrintStory(int nEquations, struct equation story[], int flag);
-int SetFlag(int nEquations);
+void SetFlag(int *nEquations, int *flag);
 void FileClearBuf(FILE *file);
 
-int TestMain(struct equation RefTests[], struct equation Tests[]);
+void PrintOne(struct equation *Eq);
+void PrintTwo(struct equation *Eq);
+void PrintComplex(struct equation *Eq);
+void PrintInf(void);
+void PrintDefault(void);
+
+void TestMain(struct equation RefTests[], struct equation Tests[]);
 void GetTest(struct equation *Test, struct equation Tests[], FILE *file, int nTests);
 void ReadTests(struct equation Tests[], struct equation RefTests[]);
 NUM_CODE TestFailCode(struct equation *Test,  struct equation RefTests[], int NumTest);
 void FailMessage(int FailCode, struct equation *Test, struct equation RefTest[], int NumTest);
 
-int Rand(long unsigned int Next);
+long unsigned int Rand(long unsigned int Next);
 
 #endif

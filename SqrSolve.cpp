@@ -2,8 +2,10 @@
 
 #define INF 1000000
  
-void SqrSolve (struct equation *Eq)
+void SqrSolve (struct equation * Eq)
 {	
+	assert (Eq);
+	
 	// проверяем входные данные
 	
 	double a = Eq -> a;
@@ -14,15 +16,13 @@ void SqrSolve (struct equation *Eq)
 	assert (b < INF);
 	assert (c < INF);
 
-	assert (Eq);
-
 	// анализируем введенные коэффициенты
 	
-	if (Cmp(a, 0.0) == 0)
+	if (Cmp(a, 0.0, FOUR_DIGITS) == 0)
 	{
-		if (Cmp(b, 0.0) == 0)
+		if (Cmp(b, 0.0, FOUR_DIGITS) == 0)
 		{
-			Eq -> nRoots = (Cmp(c, 0.0) == 0) ? c : INF_ROOTS;
+			Eq -> nRoots = (Cmp(c, 0.0, FOUR_DIGITS) == 0) ? c : INF_ROOTS;
 		}
 		else  // случай линейного уравнения
 		{
@@ -35,26 +35,28 @@ void SqrSolve (struct equation *Eq)
 		Discr(Eq);
 		double D = Eq -> D;
 
-		if (Cmp(D, 0.0) == 0)      // случай с одним корнем
+		if (Cmp(D, 0.0, FOUR_DIGITS) == 0)      // случай с одним корнем
 		{
-			Eq -> x1 -> Re = (-b + sqrt(D)) / (2 * a);
+			Eq -> x1_Re = (-b + sqrt(D)) / (2 * a);
 			Eq -> nRoots = ONE_ROOT;
 		}
-		else if (Cmp(D, 0.0) == 1)  // случай с 2 корнями
+		else if (Cmp(D, 0.0, FOUR_DIGITS) == 1)  // случай с 2 корнями
 		{
-			Eq -> x1 -> Re = (-b + sqrt(D)) / (2 * a);
-			Eq -> x2 -> Re = (-b - sqrt(D)) / (2 * a);
+			Eq -> x1_Re = (-b + sqrt(D)) / (2 * a);
+			Eq -> x2_Re = (-b - sqrt(D)) / (2 * a);
+			//printf("x2_Re = %lg\n", Eq -> x2 -> Re);
 			Eq -> nRoots = TWO_ROOTS;
 		}
 		else             // случай с комлексными корнями
 		{
-			Eq -> x1 -> Re = -b / (2 * a);
-			Eq -> x1 -> Im = sqrt(-D) / (2 * a);
+			Eq -> x1_Re = -b / (2 * a);
+			Eq -> x1_Im = sqrt(-D) / (2 * a);
 
-			Eq -> x2 -> Re = -b / (2 * a);
-			Eq -> x2 -> Im = -sqrt(-D) / (2 * a);
+			Eq -> x2_Re = -b / (2 * a);
+			Eq -> x2_Im = -sqrt(-D) / (2 * a);
 
 			Eq -> nRoots = COMPLEX_ROOTS;
 		}
+		
 	}
 }	
