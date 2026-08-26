@@ -20,7 +20,7 @@ void CmdFlag(int *TestFlag, int *UserFlag, int argc, char *argv[])
                 case 'u':
                     *UserFlag = 1;
                     break;
-                    
+
                 default:
                     return;    
             }

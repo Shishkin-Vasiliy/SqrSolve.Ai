@@ -11,7 +11,7 @@ void GetTest(struct equation *Test, struct equation Tests[], FILE *file, int nTe
 
     if (nTests < MAX_TESTS && (fscanf(file, "%lg %lg %lg %lg %d %lg %lg %lg %lg", &(Test -> a), &(Test -> b), &(Test -> c), &(Test -> D), &(Test -> nRoots), &(Test -> x1_Re), &(Test -> x1_Im), &(Test -> x2_Re), &(Test -> x2_Im))) == EQ_ARG_NUM)
     {
-    AddEq(nTests, Tests, Test);
+    AddTest(nTests, Tests, Test);        // AddEq заменено на AddTest
     FileClearBuf(file);
     }
 }
@@ -26,7 +26,11 @@ void ReadTests(struct equation Tests[], struct equation RefTests[])
     assert(TestPtr);
     assert(RefTestPtr);
 
-    equation Test = {
+    equation Test = {};
+
+    for (int i = 0; i < MAX_TESTS; i++)
+    {
+        Test = {
         .a = NAN,
         .b = NAN,
         .c = NAN,
@@ -36,17 +40,17 @@ void ReadTests(struct equation Tests[], struct equation RefTests[])
         .x1_Im = NAN,
         .x2_Re = NAN,
         .x2_Im = NAN,
-    };
-
-    for (int i = 0; i < MAX_TESTS; i++)
-    {
+        };
         GetTest(&Test, RefTests, RefTestPtr, nTests);
         SqrSolve(&Test);
         nTests++;
     }
 
     nTests = 0;
-    Test = {
+
+    for (int i = 0; i < MAX_TESTS; i++)
+    {
+        Test = {
         .a = NAN,
         .b = NAN,
         .c = NAN,
@@ -56,12 +60,9 @@ void ReadTests(struct equation Tests[], struct equation RefTests[])
         .x1_Im = NAN,
         .x2_Re = NAN,
         .x2_Im = NAN,
-    };
-
-    for (int i = 0; i < MAX_TESTS; i++)
-    {
-        GetTest(&Test, Tests, TestPtr, nTests); 
-        SqrSolve(&Test);   
+        };
+        GetTest(&Test, Tests, TestPtr, nTests);  
+        SqrSolve(&Test);
         nTests++;
     }
 

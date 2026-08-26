@@ -1,5 +1,5 @@
 g++ AddEq.cpp ClearBuf.cpp DblCmp.cpp Description.cpp Discr.cpp FailMessage.cpp GetKoeff.cpp \
-    Invite.cpp LnrSolve.cpp main.cpp Output.cpp PrintStory.cpp SetFlag.cpp SqrSolve.cpp \
+    Invite.cpp LnrSolve.cpp main.cpp Output.cpp PrintStory.cpp SetFlag.cpp SqrSolve.cpp AddTest.cpp \
     TestFailCode.cpp TestMain.cpp GetTests.cpp CmdFlag.cpp FileClearBuf.cpp Tokens.cpp RootsOutput.cpp \
     -D _DEBUG -ggdb3 -std=c++17 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations \
     -Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts \

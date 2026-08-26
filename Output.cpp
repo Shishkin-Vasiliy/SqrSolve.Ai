@@ -1,7 +1,7 @@
 #include "header.h"
 
 void Output(struct equation *Eq)
-{
+{	
 	assert(Eq);
 
 	int nRoots = Eq -> nRoots;

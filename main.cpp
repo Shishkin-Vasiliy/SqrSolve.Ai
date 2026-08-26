@@ -2,12 +2,13 @@
 
 int main(int argc, char *argv[])
 {
+	// todo парсер уравнений и графику
 	PrintDescr();                          
 
 	struct equation story[BUF_SIZE] = {};
 	int nEquations = 0;                    
 	int TestFlag = 0;                	   
-	int UserFlag = 0;                     
+	int UserFlag = 0;                   
 
 	struct equation Eq = {
 		.a = NAN,
@@ -37,10 +38,9 @@ int main(int argc, char *argv[])
 	Invite();
 
 	int flag = 0;      
-	long unsigned int Temp = 0;
 	long unsigned int Tokens = 38494;
 
-	while (GetKoeff(&Eq) != 0) // Todo
+	while (GetKoeff(&Eq) != 0) 
 	{
 		SqrSolve(&Eq);
 		SetFlag(&nEquations, &flag);
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 		Output(&Eq);  
 		PrintTokens(&Tokens);             
 	}
-
+ 
 	PrintStory(nEquations, story, flag);
 
 	return 0;	

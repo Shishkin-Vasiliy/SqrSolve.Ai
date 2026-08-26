@@ -30,13 +30,13 @@ struct equation {
 #define FOUR_DIGITS 4
 
 #define	BUF_SIZE 4
-#define	MAX_TESTS 5 
+#define	MAX_TESTS 6
 
 enum NUM_ROOTS {
 	ONE_ROOT = 1,
 	TWO_ROOTS = 2,
 	COMPLEX_ROOTS = 3,
-	INF_ROOTS = -1
+	INF_ROOTS = -1,
 };
 
 enum NUM_CODE {
@@ -70,10 +70,12 @@ void PrintInf(void);
 void PrintDefault(void);
 
 void TestMain(struct equation RefTests[], struct equation Tests[]);
+void AddTest(int nEquations, struct equation Tests[], struct equation *Test);
 void GetTest(struct equation *Test, struct equation Tests[], FILE *file, int nTests);
 void ReadTests(struct equation Tests[], struct equation RefTests[]);
 NUM_CODE TestFailCode(struct equation *Test,  struct equation RefTests[], int NumTest);
 void FailMessage(int FailCode, struct equation *Test, struct equation RefTest[], int NumTest);
+
 
 void PrintTokens(long unsigned int *Tokens);
 long unsigned int Rand(long unsigned int Next);

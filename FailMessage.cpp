@@ -15,7 +15,7 @@ void FailMessage(int FailCode, struct equation *Test, struct equation RefTests[]
 
     struct equation RefTest = RefTests[NumTest];  
     
-    assert(&RefTest);
+    assert(&RefTests[NumTest]);
 
     switch(FailCode)
     {
