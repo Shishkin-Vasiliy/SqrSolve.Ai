@@ -2,7 +2,7 @@
 
 int Cmp(double a, double b, int Accuracy)
 {
-	double epsilon = pow(10, -Accuracy);
+	double epsilon = pow(10, -Accuracy); // todo
 
 	if (fabs(a - b) < epsilon)
 		return 0;

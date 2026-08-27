@@ -13,10 +13,6 @@ NUM_CODE TestFailCode(struct equation *Test, struct equation RefTests[], int Num
     double D = Test -> D;
     int nRoots = Test -> nRoots;
 
-    double a = Test -> a;
-    double b = Test -> b;
-    double c = Test -> c;
-
     double x1_Re = Test -> x1_Re;
     double x1_Im = Test -> x1_Im;
 

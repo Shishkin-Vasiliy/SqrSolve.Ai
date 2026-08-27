@@ -1,9 +1,8 @@
 #include "header.h"
 
-void CmdFlag(int *TestFlag, int *UserFlag, int argc, char *argv[])
+void CmdFlag(struct Flags *Flags, int argc, char *argv[])
 {
-    assert(TestFlag);
-    assert(UserFlag);
+    assert(Flags);
 
     int ch = 0;
 
@@ -14,13 +13,17 @@ void CmdFlag(int *TestFlag, int *UserFlag, int argc, char *argv[])
             switch(ch)
             {
                 case 't':
-                    *TestFlag = 1;
+                    (*Flags).Test = 1;
                     break;
                 
                 case 'u':
-                    *UserFlag = 1;
+                    (*Flags).User = 1;
                     break;
-
+                
+                case 'g':
+                    (*Flags).Graph = 1;
+                    break;
+                    
                 default:
                     return;    
             }

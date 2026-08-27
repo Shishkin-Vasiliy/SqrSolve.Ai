@@ -12,28 +12,28 @@ void Output(struct equation *Eq)
 		{
 			case ONE_ROOT:
 			{
-				PrintOne(Eq);
+				PrintOneRoot(Eq);
 			}
 				break;
 
 			case TWO_ROOTS:
 			{
-				PrintTwo(Eq);
+				PrintTwoRoots(Eq);
 			}
 				break;
 
 			case COMPLEX_ROOTS:
 			{
-				PrintComplex(Eq);
+				PrintComplexRoots(Eq);
 			}
 				break;
 
 			case INF_ROOTS:
-				PrintInf();
+				PrintInfRoots();
 				break;
 
 			default:
-				PrintDefault();
+				PrintDefaultRoots();
 				break;
 		}	
 }

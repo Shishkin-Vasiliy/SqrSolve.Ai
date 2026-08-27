@@ -1,6 +1,6 @@
-g++ AddEq.cpp ClearBuf.cpp DblCmp.cpp Description.cpp Discr.cpp FailMessage.cpp GetKoeff.cpp \
+g++ AddEq.cpp ClearBuf.cpp DblCmp.cpp Description.cpp Discr.cpp FailMessage.cpp GetKoeff.cpp Draw.cpp \
     Invite.cpp LnrSolve.cpp main.cpp Output.cpp PrintStory.cpp SetFlag.cpp SqrSolve.cpp AddTest.cpp \
-    TestFailCode.cpp TestMain.cpp GetTests.cpp CmdFlag.cpp FileClearBuf.cpp Tokens.cpp RootsOutput.cpp \
+    TestFailCode.cpp TestMain.cpp GetTests.cpp CmdFlag.cpp FileClearBuf.cpp Tokens.cpp RootsOutput.cpp CodesOutput.cpp \
     -D _DEBUG -ggdb3 -std=c++17 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations \
     -Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts \
     -Wconditionally-supported -Wconversion -Wctor-dtor-privacy -Wempty-body -Wfloat-equal \
@@ -14,4 +14,5 @@ g++ AddEq.cpp ClearBuf.cpp DblCmp.cpp Description.cpp Discr.cpp FailMessage.cpp 
     -fsized-deallocation -fstack-protector -fstrict-overflow -flto-odr-type-merging \
     -fno-omit-frame-pointer -pie -fPIE -Werror=vla \
     -fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr \
-     -o sqr.out
+    -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 \
+    -o sqr.out

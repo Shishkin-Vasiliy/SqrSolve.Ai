@@ -1,6 +1,6 @@
 #include "header.h"
 
-void PrintOne(struct equation *Eq)
+void PrintOneRoot(struct equation *Eq)
 {
     printf("У уравнения один корень:\n");
 	printf(PURPLE "a" NO_COLOR " = %lg\n", Eq -> a);
@@ -10,7 +10,7 @@ void PrintOne(struct equation *Eq)
 	printf(PURPLE "-----------------------------------------" NO_COLOR"\n");
 }
 
-void PrintTwo(struct equation *Eq)
+void PrintTwoRoots(struct equation *Eq)
 {
     printf("У уравнения два вещественных корня:\n");
 	printf(PURPLE "a" NO_COLOR " = %lg\n", Eq -> a);
@@ -22,7 +22,7 @@ void PrintTwo(struct equation *Eq)
 	printf(PURPLE "-----------------------------------------" NO_COLOR "\n");
 }
 
-void PrintComplex(struct equation *Eq)
+void PrintComplexRoots(struct equation *Eq)
 {
     printf("У уравнения два комплексных корня:\n");
 	printf(PURPLE "a" NO_COLOR " = %lg\n", Eq -> a);
@@ -38,12 +38,12 @@ void PrintComplex(struct equation *Eq)
 	printf(PURPLE "-----------------------------------------" NO_COLOR"\n");
 }
 
-void PrintInf(void)
+void PrintInfRoots(void)
 {
     printf(RED "ERROR: у уравнения бесконечно много корней." NO_COLOR "\n");
 }
 
-void PrintDefault(void)
+void PrintDefaultRoots(void)
 {
     printf(RED "ERROR: некорректное квадратное уравнение." NO_COLOR "\n");
 }

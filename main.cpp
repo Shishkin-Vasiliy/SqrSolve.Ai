@@ -2,13 +2,10 @@
 
 int main(int argc, char *argv[])
 {
-	// todo парсер уравнений и графику
 	PrintDescr();                          
 
 	struct equation story[BUF_SIZE] = {};
-	int nEquations = 0;                    
-	int TestFlag = 0;                	   
-	int UserFlag = 0;                   
+	int nEquations = 0;                                      
 
 	struct equation Eq = {
 		.a = NAN,
@@ -22,16 +19,23 @@ int main(int argc, char *argv[])
 		.x2_Im = NAN
 	};
 
-	CmdFlag(&TestFlag, &UserFlag, argc, argv);
+	struct Flags Flags = {
+		.User = 0,
+		.Test = 0,
+		.Graph = 0
+	};
 
-	if (TestFlag)
+// TODO сделать обработку флагов в общем случае  // done
+	CmdFlag(&Flags, argc, argv);
+
+	if (Flags.Test)
 	{
 		struct equation RefTests[MAX_TESTS] = {}; 
 		struct equation Tests[MAX_TESTS] = {};
 
 	   	TestMain(RefTests, Tests);
 
-		if (!UserFlag)
+		if (!Flags.User)
 			return 0;
 	}
 	
@@ -40,14 +44,17 @@ int main(int argc, char *argv[])
 	int flag = 0;      
 	long unsigned int Tokens = 38494;
 
-	while (GetKoeff(&Eq) != 0) 
+	while (GetKoeff(&Eq) != 0) // GetCoeff
 	{
 		SqrSolve(&Eq);
 		SetFlag(&nEquations, &flag);
 		AddEq(nEquations, story, &Eq);
 		nEquations++;
 		Output(&Eq);  
-		PrintTokens(&Tokens);             
+		PrintTokens(&Tokens); 
+		
+		if (Flags.Graph)
+			DrawMain(Eq);            
 	}
  
 	PrintStory(nEquations, story, flag);

@@ -8,6 +8,7 @@ void PrintDescr(void)
 	printf(GREEN "#" NO_COLOR "\n");
 	printf(GREEN "# Пользователь вводит коэффициенты a, b, c" NO_COLOR "\n");
 	printf(GREEN "# Программа выводит решение уравнения с введенными коэффициентами" NO_COLOR "\n");
+	printf(GREEN "# Если у уравнения есть вещественные корни, то программа рисует график уравнения" NO_COLOR "\n");
 	printf(GREEN "# Для выхода введите q" NO_COLOR "\n");
 	printf(GREEN "# ---------------------------------------------------------------" NO_COLOR "\n");
 	printf("\n");

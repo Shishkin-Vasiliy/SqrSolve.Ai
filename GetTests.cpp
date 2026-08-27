@@ -27,7 +27,7 @@ void ReadTests(struct equation Tests[], struct equation RefTests[])
     assert(RefTestPtr);
 
     equation Test = {};
-
+    
     for (int i = 0; i < MAX_TESTS; i++)
     {
         Test = {
