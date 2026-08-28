@@ -1,17 +1,9 @@
 #include "header.h"
 
-// печать сообщения о непройденном тесте
-
 void FailMessage(int FailCode, struct equation *Test, struct equation RefTests[], int NumTest)
 {
     assert(Test);
     assert(RefTests);
-
-    double a = Test -> a;
-    double b = Test -> b;
-    double c = Test -> c;
-    double D = Test -> D;
-    int nRoots = Test -> nRoots;
 
     struct equation RefTest = RefTests[NumTest];  
     

@@ -9,13 +9,20 @@
 #include <time.h>
 #include <cstddef>
 #include <ctype.h>
+#include <unistd.h>
+#include <stdarg.h>
 #include "raylib.h"
 
-#define	RED 	 "\033[31m"
-#define	GREEN 	 "\033[32m"
-#define	PURPLE   "\033[35m"
-#define	NO_COLOR "\033[0m"
+#define	RED_CNSL 	 "\033[31m"
+#define	GREEN_CNSL 	 "\033[32m"
+#define	PURPLE_CNSL  "\033[35m"
+#define	NO_COLOR     "\033[0m"
 
+/** 
+	\details Структура включает в себя не только коэффициенты и корни уравнения,
+	но также значение дискриминанта и количество корней для дальнейшего вывода 
+	в консоль сразу всей информации об уравнении.
+*/
 struct equation {
 	double a;
 	double b;
@@ -28,16 +35,25 @@ struct equation {
 	double x2_Im;
 };
 
+/**
+	\details Структура, включающая в себя значения флагов-аргументов запуска из командной строки.
+	\param User (аргумент командной строки -u) запускает программу в пользовательском режиме.
+	\param Test (аргумент командной строки -t) запускает программу в режиме тестирования.
+	\param Graph (аргумент командной строки -g) сообщает программе, что при выводе решенного уравнения нужно также рисовать его график.
+*/
 struct Flags {
-	int User;
-	int Test;
-	int Graph;
+	bool User;
+	bool Test;
+	bool Graph;
 };
 
-const int EQ_ARG_NUM  = 9;
-const int FOUR_DIGITS = 4;
+const int MAX_STR = 256;
+const int SLEEP_TIME = 10000;
 
-const int BUF_SIZE = 4;
+const int EQ_ARG_NUM  = 9;
+const int PRECISION = 4;
+
+const int STORY_SIZE = 4;
 const int MAX_TESTS = 6;
 
 const int MAX_POINTS = 1200;
@@ -55,6 +71,15 @@ enum NUM_ROOTS {
 	INF_ROOTS = -1,
 };
 
+/**
+	\details Коды ошибок в тестах
+	\param PASS означает, что тест пройден без ошибок
+	\param CODE_ZERO означает ошибку в вычислении дискриминанта
+	\param CODE_ONE означает ошибку в вычислении количества корней
+	\param CODE_TWO означает ошибку в вычислении единственного корня
+	\param CODE_THREE означает ошибку в вычислении двух вещественных корней
+	\param CODE_FOUR означает ошибку в вычислении двух комплексных корней
+*/
 enum NUM_CODE {
 	PASS = -1,
 	CODE_ZERO = 0,
@@ -69,14 +94,14 @@ void PrintDescr(void);
 void Invite(void);									   
 void SqrSolve(struct equation *Eq);                    
 void LnrSolve(struct equation *Eq);					   
-int GetKoeff(struct equation *Eq);					   
+int GetCoeff(struct equation *Eq);					   
 void Discr(struct equation *Eq);                       
 void Output(struct equation *Eq);                      
 void ClearBuf(void);								   
 int Cmp(double a, double b, int Accuracy);
 void AddEq(int nEquations, struct equation story[], struct equation *Eq);
 void PrintStory(int nEquations, struct equation story[], int flag);
-void SetFlag(int *nEquations, int *flag);
+void SetFlag(int *nEquations, bool *flag);
 void FileClearBuf(FILE *file);
 
 void PrintOneRoot(struct equation *Eq);
@@ -106,5 +131,7 @@ void DrawAxes(void);
 
 void PrintTokens(long unsigned int *Tokens);
 long unsigned int Rand(long unsigned int Next);
+
+void SlowPrintf(const char *fmt, ...);
 
 #endif

@@ -11,7 +11,7 @@ void GetTest(struct equation *Test, struct equation Tests[], FILE *file, int nTe
 
     if (nTests < MAX_TESTS && (fscanf(file, "%lg %lg %lg %lg %d %lg %lg %lg %lg", &(Test -> a), &(Test -> b), &(Test -> c), &(Test -> D), &(Test -> nRoots), &(Test -> x1_Re), &(Test -> x1_Im), &(Test -> x2_Re), &(Test -> x2_Im))) == EQ_ARG_NUM)
     {
-    AddTest(nTests, Tests, Test);        // AddEq заменено на AddTest
+    AddTest(nTests, Tests, Test);       
     FileClearBuf(file);
     }
 }

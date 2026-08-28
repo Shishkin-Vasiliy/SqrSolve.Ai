@@ -2,4 +2,6 @@ Parsing.cpp
 header.h.gch
 scr.sh
 sqr.out
-
+Doxyfile
+html/
+latex/

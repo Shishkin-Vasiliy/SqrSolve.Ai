@@ -2,9 +2,10 @@
 
 int main(int argc, char *argv[])
 {
+	
 	PrintDescr();                          
 
-	struct equation story[BUF_SIZE] = {};
+	struct equation story[STORY_SIZE] = {};
 	int nEquations = 0;                                      
 
 	struct equation Eq = {
@@ -25,7 +26,6 @@ int main(int argc, char *argv[])
 		.Graph = 0
 	};
 
-// TODO сделать обработку флагов в общем случае  // done
 	CmdFlag(&Flags, argc, argv);
 
 	if (Flags.Test)
@@ -41,10 +41,10 @@ int main(int argc, char *argv[])
 	
 	Invite();
 
-	int flag = 0;      
+	bool flag = 0;      
 	long unsigned int Tokens = 38494;
 
-	while (GetKoeff(&Eq) != 0) // GetCoeff
+	while (GetCoeff(&Eq) != 0) 
 	{
 		SqrSolve(&Eq);
 		SetFlag(&nEquations, &flag);

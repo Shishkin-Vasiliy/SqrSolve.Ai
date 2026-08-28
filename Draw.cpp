@@ -25,7 +25,7 @@ void DrawPoints(float X[], float Y[])
             EndDrawing();  
         }
     CloseWindow();
-    printf(PURPLE "-----------------------------------------" NO_COLOR"\n");
+    printf(PURPLE_CNSL "-----------------------------------------" NO_COLOR "\n");
 }        
 
 void DrawAxes(void)
@@ -60,7 +60,7 @@ void DrawLinear(double b, double c, float X[])
 
     for (int i = 0; i < MAX_POINTS - 1; i++)
     {
-        Y[i] = b * (X[i] - X_ZERO) + c + Y_ZERO;
+        Y[i] = (float) (b * (X[i] - X_ZERO) + c + Y_ZERO);
     }
 
     DrawPoints(X, Y); 
@@ -74,7 +74,7 @@ void DrawParabola(double a, double b, double c, float X[])
 
     for (int i = 0; i < MAX_POINTS - 1; i++)
     {
-        Y[i] = a * (X[i] - X_ZERO) * (X[i] - X_ZERO) + b * (X[i] - X_ZERO) + c + Y_ZERO;
+        Y[i] = (float) (a * (X[i] - X_ZERO) * (X[i] - X_ZERO) + b * (X[i] - X_ZERO) + c + Y_ZERO);
     }
     
     DrawPoints(X, Y);
@@ -103,7 +103,7 @@ void DrawMain(struct equation Eq)
 
         case ONE_ROOT :
             {
-                if (a)
+                if (Cmp(a, 0.0, PRECISION) != 0)
                     DrawParabola(a, b, c, X);
                 else
                     DrawLinear(b, c, X);

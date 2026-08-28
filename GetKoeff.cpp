@@ -1,16 +1,18 @@
 #include "header.h"
 
-int GetKoeff(struct equation *Eq)
+/** 
+	\brief Функция, считывающая коэффициенты из терминала в структуру уравнения
+*/
+
+int GetCoeff(struct equation *Eq)
 {
 	assert(Eq);
 
-	const int NUM_KOEFFS = 3;
+	const int NUM_COEFFS = 3;
 	int ch = 0;
 	int state = 0;
 
-	// TODO сделать нормальную очистку буфера  // done
-
-	while ((state = scanf("%lg %lg %lg", &(Eq -> a), &(Eq -> b), &(Eq -> c))) != NUM_KOEFFS)
+	while ((state = scanf("%lg %lg %lg", &(Eq -> a), &(Eq -> b), &(Eq -> c))) != NUM_COEFFS)
 	{
 	    if ((ch = getchar()) == 'q')
 		    return 0;
@@ -22,4 +24,3 @@ int GetKoeff(struct equation *Eq)
 	return state;
 }
 
-//TODO функция с переменным количеством аргументов (slow_print)

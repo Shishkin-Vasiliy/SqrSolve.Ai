@@ -1,7 +1,5 @@
 #include "header.h"
 
-// управляющая программа тестирования
-
 void TestMain(struct equation RefTests[], struct equation Tests[])
 {
     assert(RefTests);
@@ -10,8 +8,8 @@ void TestMain(struct equation RefTests[], struct equation Tests[])
     int Code = 0;                 
     int NumFails = 0;             
 
-    printf("Тестирование программы:\n\n");
-    printf("...\n");
+    SlowPrintf("Тестирование программы:\n\n");
+    SlowPrintf("...\n");
     ReadTests(Tests, RefTests);   
 
     for (int i = 0; i < MAX_TESTS; i++)
@@ -23,5 +21,6 @@ void TestMain(struct equation RefTests[], struct equation Tests[])
         
         FailMessage(Code, &Tests[i], RefTests, i);
     }
-    printf("\nТестирование завершено, пройдено" GREEN " %d" NO_COLOR " тестов из %d\n\n", MAX_TESTS - NumFails, MAX_TESTS);
+    SlowPrintf("\nТестирование завершено, пройдено" GREEN_CNSL " %d" NO_COLOR " тестов из %d\n\n", MAX_TESTS - NumFails, MAX_TESTS);
 }
+
