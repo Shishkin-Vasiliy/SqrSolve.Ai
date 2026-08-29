@@ -1,5 +1,48 @@
 #include "header.h"
 
+void DrawMain(struct equation Eq)
+{
+    float X[MAX_POINTS] = {};
+
+    double a = Eq.a;
+    double b = Eq.b;
+    double c = Eq.c;
+    int nRoots = Eq.nRoots;
+
+    float x = 0.0;
+
+    for (int i = 0; i < MAX_POINTS; i++, x++)
+    {
+        X[i] = x;
+    }
+
+    switch(nRoots)
+    {
+        case INF_ROOTS :
+            break;
+
+        case ONE_ROOT :
+            {
+                if (Cmp(a, 0.0, PRECISION) != 0)
+                    DrawParabola(a, b, c, X);
+                else
+                    DrawLinear(b, c, X);
+            }    
+            break;
+
+        case TWO_ROOTS :
+            DrawParabola(a, b, c, X);
+            break;
+        
+        case COMPLEX_ROOTS : 
+            DrawParabola(a, b, c, X);
+            break;
+        
+        default :
+            ;
+    }
+}
+
 void DrawPoints(float X[], float Y[])
 {
     assert(X && Y);
@@ -80,45 +123,4 @@ void DrawParabola(double a, double b, double c, float X[])
     DrawPoints(X, Y);
 }
 
-void DrawMain(struct equation Eq)
-{
-    float X[MAX_POINTS] = {};
 
-    double a = Eq.a;
-    double b = Eq.b;
-    double c = Eq.c;
-    int nRoots = Eq.nRoots;
-
-    float x = 0.0;
-
-    for (int i = 0; i < MAX_POINTS; i++, x++)
-    {
-        X[i] = x;
-    }
-
-    switch(nRoots)
-    {
-        case INF_ROOTS :
-            break;
-
-        case ONE_ROOT :
-            {
-                if (Cmp(a, 0.0, PRECISION) != 0)
-                    DrawParabola(a, b, c, X);
-                else
-                    DrawLinear(b, c, X);
-            }    
-            break;
-
-        case TWO_ROOTS :
-            DrawParabola(a, b, c, X);
-            break;
-        
-        case COMPLEX_ROOTS : 
-            DrawParabola(a, b, c, X);
-            break;
-        
-        default :
-            ;
-    }
-}

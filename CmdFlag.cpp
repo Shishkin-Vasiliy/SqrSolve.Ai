@@ -1,10 +1,9 @@
 #include "header.h"
 
 /**
-    \details Функция CmdFlag считывает аргументы командной строки и устанавливает нужные флаги для запуска
+    \brief Функция CmdFlag считывает аргументы командной строки и устанавливает нужные флаги для запуска
     Подробнее о флагах в описании к ENUM FLAGS.
 */
-
 void CmdFlag(struct Flags *Flags, int argc, char *argv[])
 {
     assert(Flags);
