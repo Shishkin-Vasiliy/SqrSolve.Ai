@@ -14,10 +14,16 @@ void SqrSolve (struct equation * Eq)
 
 	const int INF = 1000000;
 
-	assert (a < INF);
-	assert (b < INF);
-	assert (c < INF);
-	
+	// bugs: 
+	// 1 nan 3
+	// 3 inf 2  (только ассертом можно проверить)
+	// 1 2 3d (считывается как 1 2 3 но должно выдать ошибку)
+	// 1 2 nan (только ассертом проверяется)
+
+	assert (a < INF && a > -INF);
+	assert (b < INF && b > -INF);
+	assert (c < INF && c > -INF);
+
 	if (Cmp(a, 0.0, PRECISION) == 0)
 	{
 		if (Cmp(b, 0.0, PRECISION) == 0)

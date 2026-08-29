@@ -29,18 +29,18 @@ void DrawMain(struct equation Eq)
         case ONE_ROOT :
             {
                 if (Cmp(a, 0.0, PRECISION) != 0)
-                    DrawParabola(a, b, c, X);
+                    DrawParabola(a, b, c, X, Eq);
                 else
-                    DrawLinear(b, c, X);
+                    DrawLinear(b, c, X, Eq);
             }    
             break;
 
         case TWO_ROOTS :
-            DrawParabola(a, b, c, X);
+            DrawParabola(a, b, c, X, Eq);
             break;
         
         case COMPLEX_ROOTS : 
-            DrawParabola(a, b, c, X);
+            DrawParabola(a, b, c, X, Eq);
             break;
         
         default :
@@ -54,7 +54,7 @@ void DrawMain(struct equation Eq)
     \param Y
     Функция рисует график отрезками между i и i+1 точками в массивах координат.
 */
-void DrawGraph(float X[], float Y[])
+void DrawGraph(float X[], float Y[], struct equation Eq)
 {
     assert(X && Y);
 
@@ -77,8 +77,13 @@ void DrawGraph(float X[], float Y[])
 
             BeginMode2D(camera);
 
-            DrawAxes();                
+            DrawAxes(); 
+            DrawRectangle(SCREEN_WIDTH / 2 - 375.0f, SCREEN_HEIGHT / 2 - 160.0f, 350, 100, WHITE);
+            DrawLegend(SCREEN_WIDTH / 2 - 350.0f, SCREEN_HEIGHT / 2 - 150.0f, "a = %lg, b = %lg, c = %lg", Eq.a, Eq.b, Eq.c);
+            DrawLegend(SCREEN_WIDTH / 2 - 350.0f, SCREEN_HEIGHT / 2 - 120.0f, "x1_Re = %lg, x1_Im = %lg", Eq.x1_Re, Eq.x1_Im);
+            DrawLegend(SCREEN_WIDTH / 2 - 350.0f, SCREEN_HEIGHT / 2 - 90.0f, "x2_Re = %lg, x2_Im = %lg", Eq.x2_Re, Eq.x2_Im);
 
+                           
             for (int i = 0; i < MAX_POINTS - 1; i++)
                 {
                     DrawLineEx({X[i], Y[i]}, {X[i + 1], Y[i + 1]}, LINE_THICKNESS, BLUE);
@@ -121,7 +126,7 @@ void DrawAxes(void)
     Смещения координат в формуле на X_ZERO и Y_ZERO нужно для того, чтобы график рисовался в центре экрана,
     В библиотеке raylib.h начало координат находится в верхнем левом углу окна по умолчанию.
 */
-void DrawLinear(double b, double c, float X[])
+void DrawLinear(double b, double c, float X[], struct equation Eq)
 {
     assert(X);
 
@@ -132,7 +137,7 @@ void DrawLinear(double b, double c, float X[])
         Y[i] = (float) (-(b * X[i] + c));
     }
 
-    DrawGraph(X, Y); 
+    DrawGraph(X, Y, Eq); 
 }
 
 /**
@@ -141,7 +146,7 @@ void DrawLinear(double b, double c, float X[])
     В библиотеке raylib.h начало координат находится в верхнем левом углу окна по умолчанию.
     
 */
-void DrawParabola(double a, double b, double c, float X[])
+void DrawParabola(double a, double b, double c, float X[], struct equation Eq)
 {
     assert(X);
 
@@ -152,7 +157,20 @@ void DrawParabola(double a, double b, double c, float X[])
         Y[i] = (float) (-(a * X[i] * X[i] + b * X[i] + c));
     }
     
-    DrawGraph(X, Y);
+    DrawGraph(X, Y, Eq);
+}
+
+void DrawLegend(int x, int y, const char *fmt, ...)
+{
+    char buf[MAX_STR] = {};
+
+    va_list args = {};
+
+    va_start(args, fmt);
+    vsprintf(buf, fmt, args);
+    va_end(args);
+
+    DrawText(buf, x, y, 20.0f, BLACK);
 }
 
 //void DrawLegend(struct equation Eq)
@@ -162,8 +180,8 @@ void DrawParabola(double a, double b, double c, float X[])
 //    const char *fmt_1 = "a = %lg, b = %lg, c = %lg, D = %lg, nRoots = %d";
 //    const char *fmt_1 = "x1_Re = %lg, x1_Im = %lg, x2_Re = %lg, x2_Im = %lg";
 //
-//    va_list args_1 = {Eq.a, Eq.b, Eq.c, Eq.D, Eq.nRoots};
-//    va_list args_2 = {Eq.x1_Re, Eq.x1_Im, Eq.x2_Re, Eq.x2_Im};
+//    va_list args_1 = {};
+//    va_list args_2 = {};
 //
 //    va_start(args_1, fmt_1);
 //    va_start(args_2, fmt_2);

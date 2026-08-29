@@ -2,11 +2,14 @@
 /**
 	\brief Очищает буфер ввода.
 */
-void ClearBuf(void)
+int ClearBuf(void)
 {
+	int garbage = 0;
 	int ch = 0;
 	while ((ch = getchar()) != '\n')
-		;
+		if (!isspace(ch))
+			garbage = 1;
+	return garbage;	
 }
  
 /**

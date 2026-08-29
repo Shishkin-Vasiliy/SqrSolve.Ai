@@ -41,8 +41,6 @@ int main(int argc, char *argv[])
 		if (!Flags.User)
 			return 0;
 	}
-	
-	Invite();
 
 	bool flag = 0;      
 	long unsigned int Tokens = 38494;

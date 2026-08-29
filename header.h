@@ -89,12 +89,13 @@ void LnrSolve(struct equation *Eq);
 int GetCoeff(struct equation *Eq);					   
 void Discr(struct equation *Eq);                       
 void Output(struct equation *Eq);                      
-void ClearBuf(void);								   
+int ClearBuf(void);								   
 int Cmp(double a, double b, int Precision);
 void AddEq(int nEquations, struct equation story[], struct equation *Eq);
 void PrintStory(int nEquations, struct equation story[], int flag);
 void SetFlag(int *nEquations, bool *flag);
 void FileClearBuf(FILE *file);
+void Damn(void);
 
 void PrintOneRoot(struct equation *Eq);
 void PrintTwoRoots(struct equation *Eq);
@@ -115,11 +116,12 @@ void ReadTests(struct equation Tests[], struct equation RefTests[]);
 NUM_CODE TestFailCode(struct equation *Test,  struct equation RefTests[], int NumTest);
 void FailMessage(int FailCode, struct equation *Test, struct equation RefTest[], int NumTest);
 
-void DrawGraph(float X[], float Y[]);
-void DrawLinear(double b, double c, float X[]);
-void DrawParabola(double a, double b, double c, float X[]);
+void DrawGraph(float X[], float Y[], struct equation Eq);
+void DrawLinear(double b, double c, float X[], struct equation Eq);
+void DrawParabola(double a, double b, double c, float X[], struct equation Eq);
 void DrawMain(struct equation Eq);
 void DrawAxes(void);
+void DrawLegend(int x, int y, const char *fmt, ...);
 
 void PrintTokens(long unsigned int *Tokens);
 long unsigned int Rand(long unsigned int Next);
