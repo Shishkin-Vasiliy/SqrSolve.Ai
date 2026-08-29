@@ -1,5 +1,5 @@
 g++ ClearBuf.cpp CmdFlag.cpp Draw.cpp GetCoeff.cpp main.cpp Printing.cpp SqrSolve.cpp Story.cpp Tokens.cpp UnitTest.cpp \
-    -D _DEBUG -ggdb3 -std=c++17 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations \
+    -D _DEBUG -DNDEBUG -ggdb3 -std=c++17 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations \
     -Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts \
     -Wconditionally-supported -Wconversion -Wctor-dtor-privacy -Wempty-body -Wfloat-equal \
     -Wformat-nonliteral -Wformat-security -Wformat-signedness -Wformat=2 -Winline -Wlogical-op \

@@ -14,7 +14,7 @@ void DrawMain(struct equation Eq)
     double c = Eq.c;
     int nRoots = Eq.nRoots;
 
-    float x = 0.0;
+    float x = -SCREEN_WIDTH / 2;
 
     for (int i = 0; i < MAX_POINTS; i++, x++)
     {
@@ -63,18 +63,28 @@ void DrawGraph(float X[], float Y[])
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "");
 
+    Camera2D camera = { 0 };
+    camera.target = (Vector2){ 0.0f, 0.0f };      
+    camera.offset = (Vector2){ SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f }; 
+    camera.rotation = 0.0f;                       
+    camera.zoom = 1.0f;
+
     while (!WindowShouldClose())    
         {
             BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
+            BeginMode2D(camera);
+
             DrawAxes();                
 
             for (int i = 0; i < MAX_POINTS - 1; i++)
                 {
-                    DrawLineEx({X[i], Y[i]}, {X[i + 1], Y[i + 1]}, LINE_THICKNESS, BLACK);
+                    DrawLineEx({X[i], Y[i]}, {X[i + 1], Y[i + 1]}, LINE_THICKNESS, BLUE);
                 }
+            
+            EndMode2D();
 
             EndDrawing();  
         }
@@ -90,23 +100,20 @@ void DrawAxes(void)
     const float STEP = 20;
     const float MARK_SIZE = 14;
 
-    // разметка осей
-    for (float x = 0; x < SCREEN_WIDTH; x = x + STEP)
-        DrawLineEx({x, Y_ZERO + MARK_SIZE / 2}, {x, Y_ZERO - MARK_SIZE / 2}, AX_THICKNESS, BLACK);
-    for (float y = 0; y < SCREEN_HEIGHT; y = y + STEP)
-        DrawLineEx({X_ZERO - MARK_SIZE / 2, y}, {X_ZERO + MARK_SIZE / 2, y}, AX_THICKNESS, BLACK);    
+    for (float x = -SCREEN_WIDTH / 2; x < SCREEN_WIDTH / 2; x = x + STEP)
+        DrawLineEx({x, MARK_SIZE / 2}, {x, -MARK_SIZE / 2}, AX_THICKNESS, BLACK);
+    for (float y = -SCREEN_HEIGHT / 2; y < SCREEN_HEIGHT / 2; y = y + STEP)
+        DrawLineEx({-MARK_SIZE / 2, y}, {MARK_SIZE / 2, y}, AX_THICKNESS, BLACK);    
 
-    // оси
-    DrawLineEx({0, Y_ZERO}, {SCREEN_WIDTH, Y_ZERO}, AX_THICKNESS, BLACK);  
-    DrawTriangle({SCREEN_WIDTH, Y_ZERO}, {SCREEN_WIDTH - 10, Y_ZERO - 10}, {SCREEN_WIDTH - 10, Y_ZERO + 10}, BLACK);
-    DrawText("X", SCREEN_WIDTH - 30, Y_ZERO - 30, 30, BLACK);
+    DrawLineEx({-SCREEN_WIDTH / 2, 0.0f}, {SCREEN_WIDTH / 2, 0.0f}, AX_THICKNESS, BLACK);  
+    DrawTriangle({SCREEN_WIDTH / 2, 0.0f}, {SCREEN_WIDTH / 2 - 10.0f, -10.0f}, {SCREEN_WIDTH / 2 - 10.0f, 10.0f}, BLACK);
+    DrawText("X", SCREEN_WIDTH / 2 - 30.0f, -30.0f, 30.0f, BLACK);
 
-    DrawLineEx({X_ZERO, 0}, {X_ZERO, SCREEN_HEIGHT}, AX_THICKNESS, BLACK); 
-    DrawTriangle({X_ZERO, SCREEN_HEIGHT}, {X_ZERO - 10, SCREEN_HEIGHT - 10}, {X_ZERO + 10, SCREEN_HEIGHT - 10}, BLACK);
-    DrawText("Y", X_ZERO - 50, SCREEN_HEIGHT - 30, 30, BLACK);
+    DrawLineEx({0.0f, -SCREEN_HEIGHT / 2}, {0, SCREEN_HEIGHT / 2}, AX_THICKNESS, BLACK); 
+    DrawTriangle({0.0f, -SCREEN_HEIGHT / 2}, {-10.0f, -SCREEN_HEIGHT / 2 + 10.0f}, {10.0f, -SCREEN_HEIGHT / 2 + 10.0f}, BLACK);
+    DrawText("Y", -30.0f, -SCREEN_HEIGHT / 2 + 10.0f, 30.0f, BLACK);
 
-    // начало отсчета
-    DrawText("0", X_ZERO - 30, Y_ZERO - 30, 30, BLACK);   
+    DrawText("0", -30.0f, -30.0f, 30.0f, BLACK);   
 }
 
 /**
@@ -122,7 +129,7 @@ void DrawLinear(double b, double c, float X[])
 
     for (int i = 0; i < MAX_POINTS - 1; i++)
     {
-        Y[i] = (float) (b * (X[i] - X_ZERO) + c + Y_ZERO);
+        Y[i] = (float) (-(b * X[i] + c));
     }
 
     DrawGraph(X, Y); 
@@ -142,10 +149,32 @@ void DrawParabola(double a, double b, double c, float X[])
 
     for (int i = 0; i < MAX_POINTS - 1; i++)
     {
-        Y[i] = (float) (a * (X[i] - X_ZERO) * (X[i] - X_ZERO) + b * (X[i] - X_ZERO) + c + Y_ZERO);
+        Y[i] = (float) (-(a * X[i] * X[i] + b * X[i] + c));
     }
     
     DrawGraph(X, Y);
 }
 
+//void DrawLegend(struct equation Eq)
+//{
+//    char buf_1[MAX_STR] = {};
+//    char buf_2[MAX_STR] = {};
+//    const char *fmt_1 = "a = %lg, b = %lg, c = %lg, D = %lg, nRoots = %d";
+//    const char *fmt_1 = "x1_Re = %lg, x1_Im = %lg, x2_Re = %lg, x2_Im = %lg";
+//
+//    va_list args_1 = {Eq.a, Eq.b, Eq.c, Eq.D, Eq.nRoots};
+//    va_list args_2 = {Eq.x1_Re, Eq.x1_Im, Eq.x2_Re, Eq.x2_Im};
+//
+//    va_start(args_1, fmt_1);
+//    va_start(args_2, fmt_2);
+//    vsprintf(buf_1, fmt_1, args_1);
+//    vsprintf(buf_2, fmt_2, args_2);
+//    va_end(args_1);
+//    va_end(args_2);
+//
+//    (const char *) buf_1;
+//    (const char *) buf_2;
+//
+//    DrawText(buf_1, SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 2 - 150, 20.0f, PURPLE);
+//}
 

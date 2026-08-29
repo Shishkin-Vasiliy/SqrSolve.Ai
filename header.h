@@ -61,7 +61,7 @@ const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 800;
 const int X_ZERO = SCREEN_WIDTH / 2;
 const int Y_ZERO = SCREEN_HEIGHT / 2;
-const int LINE_THICKNESS = 5;
+const int LINE_THICKNESS = 3;
 const int AX_THICKNESS = 2;
 
 enum NUM_ROOTS {
