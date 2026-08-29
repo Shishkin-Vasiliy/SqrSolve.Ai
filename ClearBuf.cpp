@@ -1,5 +1,7 @@
 #include "header.h"
-
+/**
+	\brief Очищает буфер ввода.
+*/
 void ClearBuf(void)
 {
 	int ch = 0;
@@ -7,6 +9,9 @@ void ClearBuf(void)
 		;
 }
  
+/**
+	\brief Очищает буфер ввода из файла.
+*/
 void FileClearBuf(FILE *file)
 {
     assert(file);

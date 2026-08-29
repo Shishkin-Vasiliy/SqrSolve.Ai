@@ -53,7 +53,7 @@ const int SLEEP_TIME = 10000;
 const int EQ_ARG_NUM  = 9;
 const int PRECISION = 4;
 
-const int STORY_SIZE = 4;
+const int STORY_SIZE = 5;
 const int MAX_TESTS = 6;
 
 const int MAX_POINTS = 1200;
@@ -90,7 +90,7 @@ int GetCoeff(struct equation *Eq);
 void Discr(struct equation *Eq);                       
 void Output(struct equation *Eq);                      
 void ClearBuf(void);								   
-int Cmp(double a, double b, int Accuracy);
+int Cmp(double a, double b, int Precision);
 void AddEq(int nEquations, struct equation story[], struct equation *Eq);
 void PrintStory(int nEquations, struct equation story[], int flag);
 void SetFlag(int *nEquations, bool *flag);
@@ -115,7 +115,7 @@ void ReadTests(struct equation Tests[], struct equation RefTests[]);
 NUM_CODE TestFailCode(struct equation *Test,  struct equation RefTests[], int NumTest);
 void FailMessage(int FailCode, struct equation *Test, struct equation RefTest[], int NumTest);
 
-void DrawPoints(float X[], float Y[]);
+void DrawGraph(float X[], float Y[]);
 void DrawLinear(double b, double c, float X[]);
 void DrawParabola(double a, double b, double c, float X[]);
 void DrawMain(struct equation Eq);

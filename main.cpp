@@ -1,5 +1,8 @@
 #include "header.h"
 
+/**
+	main программы SqrSolve.Ai.
+*/
 int main(int argc, char *argv[])
 {
 	

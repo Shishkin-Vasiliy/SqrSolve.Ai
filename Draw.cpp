@@ -1,5 +1,10 @@
 #include "header.h"
 
+/**
+    \brief Программа управления графикой.
+    Заполняет массив X из MAX_POINTS идущих подряд точек (с постоянным шагом).
+    Затем в зависимости от вида уравнения, поступившего на вход, рисует нужный график.
+*/
 void DrawMain(struct equation Eq)
 {
     float X[MAX_POINTS] = {};
@@ -43,7 +48,13 @@ void DrawMain(struct equation Eq)
     }
 }
 
-void DrawPoints(float X[], float Y[])
+/**
+    \brief Функция, отвечающая за отрисовку точек.
+    \param X
+    \param Y
+    Функция рисует график отрезками между i и i+1 точками в массивах координат.
+*/
+void DrawGraph(float X[], float Y[])
 {
     assert(X && Y);
 
@@ -71,6 +82,9 @@ void DrawPoints(float X[], float Y[])
     printf(PURPLE_CNSL "-----------------------------------------" NO_COLOR "\n");
 }        
 
+/**
+    \brief Отрисовка осей координат.
+*/
 void DrawAxes(void)
 {
     const float STEP = 20;
@@ -95,6 +109,11 @@ void DrawAxes(void)
     DrawText("0", X_ZERO - 30, Y_ZERO - 30, 30, BLACK);   
 }
 
+/**
+    \brief Функция рисует график линейной функции.
+    Смещения координат в формуле на X_ZERO и Y_ZERO нужно для того, чтобы график рисовался в центре экрана,
+    В библиотеке raylib.h начало координат находится в верхнем левом углу окна по умолчанию.
+*/
 void DrawLinear(double b, double c, float X[])
 {
     assert(X);
@@ -106,9 +125,15 @@ void DrawLinear(double b, double c, float X[])
         Y[i] = (float) (b * (X[i] - X_ZERO) + c + Y_ZERO);
     }
 
-    DrawPoints(X, Y); 
+    DrawGraph(X, Y); 
 }
 
+/**
+    \brief Функция рисует график параболы.
+    Смещения координат в формуле на X_ZERO и Y_ZERO нужно для того, чтобы график рисовался в центре экрана,
+    В библиотеке raylib.h начало координат находится в верхнем левом углу окна по умолчанию.
+    
+*/
 void DrawParabola(double a, double b, double c, float X[])
 {
     assert(X);
@@ -120,7 +145,7 @@ void DrawParabola(double a, double b, double c, float X[])
         Y[i] = (float) (a * (X[i] - X_ZERO) * (X[i] - X_ZERO) + b * (X[i] - X_ZERO) + c + Y_ZERO);
     }
     
-    DrawPoints(X, Y);
+    DrawGraph(X, Y);
 }
 
 

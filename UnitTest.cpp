@@ -1,5 +1,11 @@
 #include "header.h"
 
+
+/**
+    \brief Функция управления тестированием.
+    Сначала функция читает тесты из файлов с помощью ReadTests(), затем получает код ошибки (или PASS при успешном прохождении)
+    и затем выводит сообщение об ошибке в зависимоти от кода ошибки. В конце сообщает о количестве пройденных тестов.
+*/
 void TestMain(struct equation RefTests[], struct equation Tests[])
 {
     assert(RefTests);
@@ -25,6 +31,12 @@ void TestMain(struct equation RefTests[], struct equation Tests[])
 }
 
 
+/**
+    \brief Функция для определения кода ошибки.
+    Функция получает тест и его номер, ищет эталонный тест с тем же номером в массиве эталонов RefTests[], 
+    затем решает уравнение и сравнивает его с эталоном.
+    \return Код Ошибки
+*/
 NUM_CODE TestFailCode(struct equation *Test, struct equation RefTests[], int NumTest)
 {
     assert(Test);
@@ -92,7 +104,9 @@ NUM_CODE TestFailCode(struct equation *Test, struct equation RefTests[], int Num
     return PASS;
 }
 
-
+/**
+    \brief Функция добавления прочитанного теста в массив тестов.
+*/
 void AddTest(int nEquations, struct equation Tests[], struct equation *Test)
 {
     assert(Tests);
@@ -105,6 +119,10 @@ void AddTest(int nEquations, struct equation Tests[], struct equation *Test)
 const char *TestsFile = "Tests.txt";
 const char *RefTestsFile = "RefTests.txt";
 
+/**
+    \brief Функция чтения теста из файла.
+    Получает строку с 9 числами и записывает их в структуру *Test по указателю
+*/
 void GetTest(struct equation *Test, struct equation Tests[], FILE *file, int nTests)
 {
     assert(Test);
@@ -118,6 +136,10 @@ void GetTest(struct equation *Test, struct equation Tests[], FILE *file, int nTe
     }
 }
 
+/**
+    \brief Функция чтения тестов.
+    Запускает в цикле функцию GetTest() для чтения очередной строки в текстовом файле, полученные тесты записываются в массив тестов
+*/
 void ReadTests(struct equation Tests[], struct equation RefTests[])
 {
     int nTests = 0;
@@ -171,6 +193,9 @@ void ReadTests(struct equation Tests[], struct equation RefTests[])
     fclose(TestPtr);
 }
 
+/**
+    \brief Выводит сообщение об ошибке в тесте в зависимости от кода ошибки.
+*/
 void FailMessage(int FailCode, struct equation *Test, struct equation RefTests[], int NumTest)
 {
     assert(Test);

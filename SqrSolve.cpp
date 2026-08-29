@@ -1,5 +1,9 @@
 #include "header.h"
  
+/**
+	\brief Функция решения квадратного уравнения.
+	Записывает все вычисленные значения в структуру Eq, которая передается по указателю.
+*/
 void SqrSolve (struct equation * Eq)
 {	
 	assert (Eq);
@@ -9,7 +13,7 @@ void SqrSolve (struct equation * Eq)
 	double c = Eq -> c;
 
 	const int INF = 1000000;
-	
+
 	assert (a < INF);
 	assert (b < INF);
 	assert (c < INF);
@@ -55,7 +59,10 @@ void SqrSolve (struct equation * Eq)
 	}
 }	
 
-
+/**
+	\brief Функция для решения линейного уравнения.
+	Записывает все вычисленные значения в структуру Eq, которая передается по указателю.
+*/
 void LnrSolve(struct equation *Eq)
 {	
 	assert(Eq);
@@ -69,7 +76,10 @@ void LnrSolve(struct equation *Eq)
 		Eq -> x1_Re = -c / b;
 }
 
-
+/**
+	\brief Функция для вычисления дискриминанта.
+	Записывает все вычисленные значения в структуру Eq, которая передается по указателю.
+*/
 void Discr(struct equation * Eq)
 {
 	assert(Eq);
@@ -82,7 +92,9 @@ void Discr(struct equation * Eq)
 	Eq -> D = D;
 }
 
-
+/**
+	\brief Функция для сравнения чисел типа double c заданной точностью.
+*/
 int Cmp(double a, double b, int Accuracy)
 {
 	double epsilon = pow(10, -Accuracy); // todo

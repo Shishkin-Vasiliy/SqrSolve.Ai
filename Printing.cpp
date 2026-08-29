@@ -1,5 +1,12 @@
 #include "header.h"
 
+/**
+    \brief Функция обеспечивает вывод символов с задержкой для создания эффекта "печатной машинки".
+    Для реализации используется список безымянных аргументов функции с переменным числом аргументов.
+    Сначала этот список инициализируется, затем функция vsprintf(), используя этот список, записывает 
+    еще неотформатированную строку в специальный буфер. В буфер попадает уже отформатированная строка,
+    которая далее посимвольно выводится в stdout с задержкой.
+*/
 void SlowPrintf(const char *fmt, ...)
 {
     char buf[MAX_STR] = {};
@@ -20,7 +27,9 @@ void SlowPrintf(const char *fmt, ...)
     }
 }
 
-
+/**
+    \brief Функция обеспечивает форматный вывод информации об уравнении и решении.
+*/
 void Output(struct equation *Eq)
 {	
 	assert(Eq);
@@ -59,7 +68,9 @@ void Output(struct equation *Eq)
 		}	
 }
 
-
+/**
+    \brief Функция печатает в консоль краткое описание программы.
+*/
 void PrintDescr(void)
 { 
 	printf(GREEN_CNSL "# ---------------------------------------------------------------" NO_COLOR "\n");
@@ -74,13 +85,18 @@ void PrintDescr(void)
 	SlowPrintf("\n");
 }
 
+/**
+    \brief Функция приглашает пользователя ко вводу.
+*/
 void Invite(void)
 {
     SlowPrintf("Введите коэффициенты a, b, c (q для выхода):\n");    
 }
 
 
-// функции вывода корней
+/**
+    \brief Функция вывода уравнения с одним корнем.
+*/
 void PrintOneRoot(struct equation *Eq)
 {
     SlowPrintf("У уравнения один корень:\n");
@@ -91,6 +107,9 @@ void PrintOneRoot(struct equation *Eq)
 	printf(PURPLE_CNSL "-----------------------------------------" NO_COLOR"\n");
 }
 
+/**
+    \brief Функция для вывода уравнения с двумя вещественными корнями.
+*/
 void PrintTwoRoots(struct equation *Eq)
 {
     SlowPrintf("У уравнения два вещественных корня:\n");
@@ -103,6 +122,9 @@ void PrintTwoRoots(struct equation *Eq)
 	printf(PURPLE_CNSL "-----------------------------------------" NO_COLOR "\n");
 }
 
+/**
+    \brief Функция для вывода уравнения с двумя комплексными корнями.
+*/
 void PrintComplexRoots(struct equation *Eq)
 {
     SlowPrintf("У уравнения два комплексных корня:\n");
@@ -119,18 +141,26 @@ void PrintComplexRoots(struct equation *Eq)
 	printf(PURPLE_CNSL "-----------------------------------------" NO_COLOR"\n");
 }
 
+/**
+    \brief Функция для вывода сообщения о наличии бесконечного количнства корней.
+*/
 void PrintInfRoots(void)
 {
     SlowPrintf(RED_CNSL "ERROR: у уравнения бесконечно много корней." NO_COLOR "\n");
 }
 
+/**
+    \brief Функция для вывода сообщения о некорректности введенных коэффициентов.
+*/
 void PrintDefaultRoots(void)
 {
     SlowPrintf(RED_CNSL "ERROR: некорректное квадратное уравнение." NO_COLOR "\n");
 }
 
 
-// функции вывода кодов ошибок
+/**
+    \brief Функция для вывода сообщения об ошибке в тесте с номером 0.
+*/
 void PrintCodeZero(struct equation *Test, struct equation RefTest, int NumTest)
 {
     printf(RED_CNSL "Test %d FAILED:" NO_COLOR " a = %lg, b = %lg, c = %lg\n", NumTest, Test -> a, Test -> b, Test -> c);
@@ -140,6 +170,9 @@ void PrintCodeZero(struct equation *Test, struct equation RefTest, int NumTest)
     printf(RED_CNSL "-----------------------------------------" NO_COLOR"\n");
 }
 
+/**
+    \brief Функция для вывода сообщения об ошибке в тесте с номером 1.
+*/
 void PrintCodeOne(struct equation *Test, struct equation RefTest, int NumTest)
 {
     printf(RED_CNSL "Test %d FAILED:" NO_COLOR " a = %lg, b = %lg, c = %lg\n", (int) NumTest, Test -> a, Test -> b, Test -> c);
@@ -149,6 +182,9 @@ void PrintCodeOne(struct equation *Test, struct equation RefTest, int NumTest)
     printf(RED_CNSL "-----------------------------------------" NO_COLOR"\n");
 }
 
+/**
+    \brief Функция для вывода сообщения об ошибке в тесте с номером 2.
+*/
 void PrintCodeTwo(struct equation *Test, struct equation RefTest, int NumTest)
 {
     printf(RED_CNSL "Test %d FAILED:" NO_COLOR " a = %lg, b = %lg, c = %lg\n", NumTest, Test -> a, Test -> b, Test -> c);
@@ -158,6 +194,9 @@ void PrintCodeTwo(struct equation *Test, struct equation RefTest, int NumTest)
     printf(RED_CNSL "-----------------------------------------" NO_COLOR"\n");
 }
 
+/**
+    \brief Функция для вывода сообщения об ошибке в тесте с номером 3.
+*/
 void PrintCodeThree(struct equation *Test, struct equation RefTest, int NumTest)
 {
     printf(RED_CNSL "Test %d FAILED:" NO_COLOR " a = %lg, b = %lg, c = %lg\n", NumTest, Test -> a, Test -> b, Test -> c);
@@ -169,6 +208,9 @@ void PrintCodeThree(struct equation *Test, struct equation RefTest, int NumTest)
     printf(RED_CNSL "-----------------------------------------" NO_COLOR"\n");
 }
 
+/**
+    \brief Функция для вывода сообщения об ошибке в тесте с номером 4.
+*/
 void PrintCodeFour(struct equation *Test, struct equation RefTest, int NumTest)
 {
     printf(RED_CNSL "Test %d FAILED:" NO_COLOR " a = %lg, b = %lg, c = %lg\n", NumTest, Test -> a, Test -> b, Test -> c);
