@@ -3,6 +3,8 @@
 
 /**
     \brief Функция управления тестированием.
+    \param[in] RefTests
+    \param[in] Tests
     Сначала функция читает тесты из файлов с помощью ReadTests(), затем получает код ошибки (или PASS при успешном прохождении)
     и затем выводит сообщение об ошибке в зависимоти от кода ошибки. В конце сообщает о количестве пройденных тестов.
 */
@@ -33,6 +35,9 @@ void TestMain(struct equation RefTests[], struct equation Tests[])
 
 /**
     \brief Функция для определения кода ошибки.
+    \param[in] Test
+    \param[in] RefTests
+    \param[in] NumTest
     Функция получает тест и его номер, ищет эталонный тест с тем же номером в массиве эталонов RefTests[], 
     затем решает уравнение и сравнивает его с эталоном.
     \return Код Ошибки
@@ -106,6 +111,9 @@ NUM_CODE TestFailCode(struct equation *Test, struct equation RefTests[], int Num
 
 /**
     \brief Функция добавления прочитанного теста в массив тестов.
+    \param[in] nEquations
+    \param[in] Tests
+    \param[in] Test
 */
 void AddTest(int nEquations, struct equation Tests[], struct equation *Test)
 {
@@ -121,6 +129,10 @@ const char *RefTestsFile = "RefTests.txt";
 
 /**
     \brief Функция чтения теста из файла.
+    \param[in] Test
+    \param[in] Tests
+    \param[in] file
+    \param[in] nTests
     Получает строку с 9 числами и записывает их в структуру *Test по указателю
 */
 void GetTest(struct equation *Test, struct equation Tests[], FILE *file, int nTests)
@@ -138,6 +150,8 @@ void GetTest(struct equation *Test, struct equation Tests[], FILE *file, int nTe
 
 /**
     \brief Функция чтения тестов.
+    \param[in] Tests
+    \param[in] RefTests
     Запускает в цикле функцию GetTest() для чтения очередной строки в текстовом файле, полученные тесты записываются в массив тестов
 */
 void ReadTests(struct equation Tests[], struct equation RefTests[])
@@ -195,6 +209,10 @@ void ReadTests(struct equation Tests[], struct equation RefTests[])
 
 /**
     \brief Выводит сообщение об ошибке в тесте в зависимости от кода ошибки.
+    \param[in] FailCode
+    \param[in] Test
+    \param[in] RefTests
+    \param[in] NumTest
 */
 void FailMessage(int FailCode, struct equation *Test, struct equation RefTests[], int NumTest)
 {

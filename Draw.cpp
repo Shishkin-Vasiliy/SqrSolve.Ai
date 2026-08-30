@@ -2,6 +2,7 @@
 
 /**
     \brief Программа управления графикой.
+    \param[in] Eq
     Заполняет массив X из MAX_POINTS идущих подряд точек (с постоянным шагом).
     Затем в зависимости от вида уравнения, поступившего на вход, рисует нужный график.
 */
@@ -50,8 +51,9 @@ void DrawMain(struct equation Eq)
 
 /**
     \brief Функция, отвечающая за отрисовку точек.
-    \param X
-    \param Y
+    \param[in] X
+    \param[in] Y
+    \param[in] Eq
     Функция рисует график отрезками между i и i+1 точками в массивах координат.
 */
 void DrawGraph(float X[], float Y[], struct equation Eq)
@@ -65,18 +67,43 @@ void DrawGraph(float X[], float Y[], struct equation Eq)
 
     Camera2D camera = { 0 };
     camera.target = (Vector2){ 0.0f, 0.0f };      
-    camera.offset = (Vector2){ SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f }; 
+    camera.offset = (Vector2){ SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f }; 
     camera.rotation = 0.0f;                       
     camera.zoom = 1.0f;
 
-    while (!WindowShouldClose())    
+    int zoomMode = 0;
+
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose())  
         {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            {
+                Vector2 Delta = GetMouseDelta();                   // получаем смещение мыши на экране 
+                Delta = Vector2Scale(Delta, -1.0f / camera.zoom);  // переводим смещение в нужный масштаб с учетом увеличения
+                camera.target = Vector2Add(camera.target, Delta);  // прибавляем к позиции камеры вектор изменения позиции
+            }
+
+            float Wheel = GetMouseWheelMove();
+
+            if (Wheel)
+            {
+                Vector2 MouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera); // преобразование координат на экране в координаты 2D мира
+                camera.offset = GetMousePosition();                                     // устанавливает камеру туда, где находится курсор (в координатах на экране)
+                camera.target = MouseWorldPos;                                          // делает то же самое но в координатах 2D мира
+
+                float Scale = 0.2f * Wheel;
+                camera.zoom = Clamp(expf(logf(camera.zoom) + Scale), 0.125f, 64.0f);
+            }
+
             BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
             BeginMode2D(camera);
 
+            DrawGrid(100, 50);
+            
             DrawAxes(); 
             DrawRectangle(SCREEN_WIDTH / 2 - 375.0f, SCREEN_HEIGHT / 2 - 160.0f, 350, 100, WHITE);
             DrawLegend(SCREEN_WIDTH / 2 - 350.0f, SCREEN_HEIGHT / 2 - 150.0f, "a = %lg, b = %lg, c = %lg", Eq.a, Eq.b, Eq.c);
@@ -90,6 +117,8 @@ void DrawGraph(float X[], float Y[], struct equation Eq)
                 }
             
             EndMode2D();
+
+             DrawGrid(100, 50);
 
             EndDrawing();  
         }
@@ -105,24 +134,31 @@ void DrawAxes(void)
     const float STEP = 20;
     const float MARK_SIZE = 14;
 
-    for (float x = -SCREEN_WIDTH / 2; x < SCREEN_WIDTH / 2; x = x + STEP)
+    for (float x = -SCREEN_WIDTH * 5; x < SCREEN_WIDTH * 5; x = x + STEP)
         DrawLineEx({x, MARK_SIZE / 2}, {x, -MARK_SIZE / 2}, AX_THICKNESS, BLACK);
-    for (float y = -SCREEN_HEIGHT / 2; y < SCREEN_HEIGHT / 2; y = y + STEP)
+    for (float y = -SCREEN_HEIGHT * 5; y < SCREEN_HEIGHT * 5; y = y + STEP)
         DrawLineEx({-MARK_SIZE / 2, y}, {MARK_SIZE / 2, y}, AX_THICKNESS, BLACK);    
 
-    DrawLineEx({-SCREEN_WIDTH / 2, 0.0f}, {SCREEN_WIDTH / 2, 0.0f}, AX_THICKNESS, BLACK);  
+    DrawLineEx({-SCREEN_WIDTH * 5, 0.0f}, {SCREEN_WIDTH * 5, 0.0f}, AX_THICKNESS, BLACK);  
     DrawTriangle({SCREEN_WIDTH / 2, 0.0f}, {SCREEN_WIDTH / 2 - 10.0f, -10.0f}, {SCREEN_WIDTH / 2 - 10.0f, 10.0f}, BLACK);
     DrawText("X", SCREEN_WIDTH / 2 - 30.0f, -30.0f, 30.0f, BLACK);
 
-    DrawLineEx({0.0f, -SCREEN_HEIGHT / 2}, {0, SCREEN_HEIGHT / 2}, AX_THICKNESS, BLACK); 
+    DrawLineEx({0.0f, -SCREEN_HEIGHT * 5}, {0, SCREEN_HEIGHT * 5}, AX_THICKNESS, BLACK); 
     DrawTriangle({0.0f, -SCREEN_HEIGHT / 2}, {-10.0f, -SCREEN_HEIGHT / 2 + 10.0f}, {10.0f, -SCREEN_HEIGHT / 2 + 10.0f}, BLACK);
     DrawText("Y", -30.0f, -SCREEN_HEIGHT / 2 + 10.0f, 30.0f, BLACK);
 
-    DrawText("0", -30.0f, -30.0f, 30.0f, BLACK);   
+    DrawText("0", -30.0f, -30.0f, 30.0f, BLACK); 
+    DrawText("20", 15.0f, -20.0f, 15.0f, BLACK);  
+    DrawText("40", 15.0f, -40.0f, 15.0f, BLACK);
+    DrawText("40", 35.0f, -20.0f, 15.0f, BLACK);
 }
 
 /**
     \brief Функция рисует график линейной функции.
+    \param[in] b
+    \param[in] c
+    \param[in] X
+    \param[in] Eq
     Смещения координат в формуле на X_ZERO и Y_ZERO нужно для того, чтобы график рисовался в центре экрана,
     В библиотеке raylib.h начало координат находится в верхнем левом углу окна по умолчанию.
 */
@@ -142,6 +178,11 @@ void DrawLinear(double b, double c, float X[], struct equation Eq)
 
 /**
     \brief Функция рисует график параболы.
+    \param[in] a
+    \param[in] b
+    \param[in] c
+    \param[in] X
+    \param[in] Eq
     Смещения координат в формуле на X_ZERO и Y_ZERO нужно для того, чтобы график рисовался в центре экрана,
     В библиотеке raylib.h начало координат находится в верхнем левом углу окна по умолчанию.
     
@@ -160,6 +201,12 @@ void DrawParabola(double a, double b, double c, float X[], struct equation Eq)
     DrawGraph(X, Y, Eq);
 }
 
+/**
+    \brief Функция отрисовки легенды на графике
+    \param[in] x
+    \param[in] y
+    \param[in] fmt
+*/
 void DrawLegend(int x, int y, const char *fmt, ...)
 {
     char buf[MAX_STR] = {};

@@ -2,6 +2,8 @@
 
 /** 
 	\brief Функция, считывающая коэффициенты из терминала в структуру уравнения.
+	\param[in] Eq
+	\param[out] state
 	Переменная ThreePtr является индикатором для цикла while, нужно ли продолжать чтение коэффициентов:
 	Если все три коэффициента прочитаны корректно (трех-очковый), то цикл while завершает работу.
 	Иначе запускается scanf(). Если он ничего не прочитал, то проверяем с помощью getchar() не введен
@@ -19,15 +21,6 @@ int GetCoeff(struct equation *Eq)
 	int state = 0;
 	int garbage = 0;
 	int ThreePtr = 0;
-//
-//while ((state = scanf("%lg %lg %lg", &(Eq -> a), &(Eq -> b), &(Eq -> c))) != NUM_COEFFS)
-//{
-//    if ((ch = getchar()) == 'q')
-//	    return 0;
-//	
-//	ClearBuf();	  	
-//}
-//ClearBuf();
 	
 	while (!ThreePtr)
 	{
@@ -41,7 +34,7 @@ int GetCoeff(struct equation *Eq)
 				return 0;
 		} 
 
-		garbage = ClearBuf();
+		garbage = ClearBuf();  // очистка и проверка на наличие мусора после ввода (типа 1 3 4g)
 
 		ThreePtr = (state == NUM_COEFFS && garbage == 0 && isfinite(Eq -> a) && isfinite(Eq -> b) && isfinite(Eq -> c));
 

@@ -3,6 +3,9 @@
 /**
     \brief Функция CmdFlag считывает аргументы командной строки и устанавливает нужные флаги для запуска.
     Подробнее о флагах в описании к ENUM FLAGS.
+    \param[in] Flags
+    \param[in] args
+    \param[in] argv
 */
 void CmdFlag(struct Flags *Flags, int argc, char *argv[])
 {

@@ -2,9 +2,10 @@
  
 /**
 	\brief Функция решения квадратного уравнения.
+	\param[in] Eq
 	Записывает все вычисленные значения в структуру Eq, которая передается по указателю.
 */
-void SqrSolve (struct equation * Eq)
+void SqrSolve (struct equation *Eq)
 {	
 	assert (Eq);
 	
@@ -13,12 +14,6 @@ void SqrSolve (struct equation * Eq)
 	double c = Eq -> c;
 
 	const int INF = 1000000;
-
-	// bugs: 
-	// 1 nan 3
-	// 3 inf 2  (только ассертом можно проверить)
-	// 1 2 3d (считывается как 1 2 3 но должно выдать ошибку)
-	// 1 2 nan (только ассертом проверяется)
 
 	assert (a < INF && a > -INF);
 	assert (b < INF && b > -INF);
@@ -67,6 +62,7 @@ void SqrSolve (struct equation * Eq)
 
 /**
 	\brief Функция для решения линейного уравнения.
+	\param[in] Eq
 	Записывает все вычисленные значения в структуру Eq, которая передается по указателю.
 */
 void LnrSolve(struct equation *Eq)
@@ -84,6 +80,7 @@ void LnrSolve(struct equation *Eq)
 
 /**
 	\brief Функция для вычисления дискриминанта.
+	\param[in] Eq
 	Записывает все вычисленные значения в структуру Eq, которая передается по указателю.
 */
 void Discr(struct equation * Eq)
@@ -100,10 +97,13 @@ void Discr(struct equation * Eq)
 
 /**
 	\brief Функция для сравнения чисел типа double c заданной точностью.
+	\param[in] a
+	\param[in] b
+	\param[in] Precision
 */
-int Cmp(double a, double b, int Accuracy)
+int Cmp(double a, double b, int Precision)
 {
-	double epsilon = pow(10, -Accuracy); // todo
+	double epsilon = pow(10, -Precision); // todo
 
 	if (fabs(a - b) < epsilon)
 		return 0;

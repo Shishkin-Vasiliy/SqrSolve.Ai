@@ -29,6 +29,7 @@ void SlowPrintf(const char *fmt, ...)
 
 /**
     \brief Функция обеспечивает форматный вывод информации об уравнении и решении.
+    \param[in] Eq
 */
 void Output(struct equation *Eq)
 {	
@@ -98,11 +99,12 @@ void Invite(void)
 */
 void Damn(void)
 {
-    printf("Неправильные коэффициенты!!!\n\n");
+    printf("Эйрбол!!! Тебе надо тренироваться\n\n");
 }
 
 /**
     \brief Функция вывода уравнения с одним корнем.
+    \param[in] Eq
 */
 void PrintOneRoot(struct equation *Eq)
 {
@@ -116,6 +118,7 @@ void PrintOneRoot(struct equation *Eq)
 
 /**
     \brief Функция для вывода уравнения с двумя вещественными корнями.
+    \param[in] Eq
 */
 void PrintTwoRoots(struct equation *Eq)
 {
@@ -131,6 +134,7 @@ void PrintTwoRoots(struct equation *Eq)
 
 /**
     \brief Функция для вывода уравнения с двумя комплексными корнями.
+    \param[in] Eq
 */
 void PrintComplexRoots(struct equation *Eq)
 {
@@ -167,6 +171,9 @@ void PrintDefaultRoots(void)
 
 /**
     \brief Функция для вывода сообщения об ошибке в тесте с номером 0.
+    \param[in] Test
+    \param[in] RefTest
+    \param[in] NumTest
 */
 void PrintCodeZero(struct equation *Test, struct equation RefTest, int NumTest)
 {
@@ -179,6 +186,9 @@ void PrintCodeZero(struct equation *Test, struct equation RefTest, int NumTest)
 
 /**
     \brief Функция для вывода сообщения об ошибке в тесте с номером 1.
+    \param[in] Test
+    \param[in] RefTest
+    \param[in] NumTest
 */
 void PrintCodeOne(struct equation *Test, struct equation RefTest, int NumTest)
 {
@@ -191,6 +201,9 @@ void PrintCodeOne(struct equation *Test, struct equation RefTest, int NumTest)
 
 /**
     \brief Функция для вывода сообщения об ошибке в тесте с номером 2.
+    \param[in] Test
+    \param[in] RefTest
+    \param[in] NumTest
 */
 void PrintCodeTwo(struct equation *Test, struct equation RefTest, int NumTest)
 {
@@ -203,6 +216,9 @@ void PrintCodeTwo(struct equation *Test, struct equation RefTest, int NumTest)
 
 /**
     \brief Функция для вывода сообщения об ошибке в тесте с номером 3.
+    \param[in] Test
+    \param[in] RefTest
+    \param[in] NumTest
 */
 void PrintCodeThree(struct equation *Test, struct equation RefTest, int NumTest)
 {
@@ -217,6 +233,9 @@ void PrintCodeThree(struct equation *Test, struct equation RefTest, int NumTest)
 
 /**
     \brief Функция для вывода сообщения об ошибке в тесте с номером 4.
+    \param[in] Test
+    \param[in] RefTest
+    \param[in] NumTest
 */
 void PrintCodeFour(struct equation *Test, struct equation RefTest, int NumTest)
 {

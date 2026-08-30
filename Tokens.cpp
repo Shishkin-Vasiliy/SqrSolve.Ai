@@ -2,6 +2,7 @@
 
 /**
     \brief Функция для генерации псевдослучайных чисел.
+    \param[in] Next
 */
 long unsigned int Rand(long unsigned int Next)
 {
@@ -11,6 +12,7 @@ long unsigned int Rand(long unsigned int Next)
 
 /**
     \brief Функция для вывода информации о количестве оставшихся токенов.
+    \param[in] Tokens
 */
 void PrintTokens(long unsigned int *Tokens)
 {

@@ -12,6 +12,8 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include "raylib.h"
+#include "rlgl.h"
+#include "raymath.h"
 
 #define	RED_CNSL 	 "\033[31m"
 #define	GREEN_CNSL 	 "\033[32m"
